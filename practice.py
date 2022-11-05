@@ -4,7 +4,7 @@ from kivymd.uix.toolbar import MDTopAppBar
 from kivy.uix.image import Image
 from kivymd.uix.textfield import MDTextField
 from kivymd.uix.label import MDLabel
-from kivymd.uix.button import MDRoundFlatButton,MDFillRoundFlatButton
+from kivymd.uix.button import MDFillRoundFlatButton
 
 class ConverterApp(MDApp):
 
@@ -22,14 +22,22 @@ class ConverterApp(MDApp):
             self.converted.text = ""
             self.label.text = ""
     def convert(self,args):
-        if self.state==0:
-            val=int(self.input.text,2)
-            self.converted.text=str(val)
-            self.label.text="in Decimal is"
-        else:
-            val = bin(int(self.input.text))[2:]
-            self.converted.text = val
-            self.label.text = "in Binary is"
+        try:
+            if self.state==0:
+                val=int(self.input.text,2)
+                self.converted.text=str(val)
+                self.label.text="in Decimal is"
+            else:
+                val = bin(int(self.input.text))[2:]
+                self.converted.text = val
+                self.label.text = "in Binary is"
+        except:
+            if self.state==0:
+                self.input.text=""
+                self.label.text="Enter a valid binary number!!"
+            else:
+                self.input.text=""
+                self.label.text="Enter a valid Decimal number!!"
 
     def build(self):
         self.state=0
